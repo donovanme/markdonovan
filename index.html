@@ -115,17 +115,10 @@
   .hero .lede{font-size:1.08rem; color:var(--ink-soft); max-width:52ch; margin-top:22px;}
   .avatar-frame{
     background:var(--surface); border:1px solid var(--border); border-radius:6px;
-    padding:22px; box-shadow:var(--shadow); text-align:center;
+    padding:14px; box-shadow:var(--shadow); text-align:center;
   }
-  .avatar-mark{
-    width:120px; height:120px; margin:0 auto 16px; border-radius:50%;
-    background:linear-gradient(155deg, var(--surface-2), var(--surface));
-    border:1px solid var(--border-strong);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces', serif; font-weight:650; font-size:2.4rem; color:var(--amber);
-  }
-  .avatar-frame p{font-size:0.82rem; color:var(--slate); margin:0;}
-  .avatar-frame .cap{font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--slate); margin-top:10px; display:block;}
+  .avatar-frame img{width:100%; border-radius:4px; display:block; object-fit:cover; aspect-ratio:4/5;}
+  .avatar-frame .cap{font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--slate); margin-top:12px; display:block;}
 
   .stat-strip{
     display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
@@ -286,6 +279,7 @@
       <a href="#onair">On Air</a>
       <a href="#log">The Log</a>
       <a href="#study">The Grind</a>
+      <a href="family.html">Family &amp; Trips</a>
     </nav>
   </div>
 </header>
@@ -301,9 +295,8 @@
         <p class="lede">I'm Mark Donovan. Since 2018 I've shipped a trivia app for Android TV, built the automation behind a 978-video trivia show, and ridden every wave of tech since — from the first ChatGPT API to coding alongside AI agents today. Right now the obsession has a target: 39,000 Anki cards deep into training for Jeopardy itself.</p>
       </div>
       <div class="avatar-frame">
-        <div class="avatar-mark">MD</div>
-        <p>Photo coming soon</p>
-        <span class="cap">Portrait pending</span>
+        <img src="images/hero-mark.jpg" alt="Mark Donovan at a café table with two beers">
+        <span class="cap">Café Hoche, somewhere between question sets</span>
       </div>
     </div>
 
@@ -454,6 +447,7 @@
     <div class="wrap footer-row">
       <p class="sign"><strong>Mark Donovan</strong> — a trivia habit that never really ends.</p>
       <div class="footer-links">
+        <a href="family.html">Family &amp; Trips</a>
         <a href="https://github.com/donovanme" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.youtube.com/@playinstanttriva" target="_blank" rel="noopener">YouTube</a>
         <a href="https://open.spotify.com/show/5yZlvpnkiWKWWwVDZCnXO2" target="_blank" rel="noopener">Spotify</a>

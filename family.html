@@ -1,0 +1,121 @@
+<!doctype html>
+<title>Family &amp; Trips — Mark Donovan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560;9..144,650;9..144,860&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1826; --ink-soft:#4A4558; --paper:#F2F0F6; --surface:#FFFFFF; --surface-2:#E9E6F0;
+    --amber:#A8660A; --teal:#0E6E68; --slate:#6B6478;
+    --border: rgba(26,24,38,0.14); --border-strong: rgba(26,24,38,0.28);
+    --shadow: 0 1px 2px rgba(26,24,38,0.06), 0 8px 24px -12px rgba(26,24,38,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#EDEAE3; --ink-soft:#B9B3C7; --paper:#151320; --surface:#1E1B2B; --surface-2:#262238;
+      --amber:#F2A83D; --teal:#4FD1C5; --slate:#9992A8;
+      --border: rgba(237,234,227,0.12); --border-strong: rgba(237,234,227,0.24);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -14px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#EDEAE3; --ink-soft:#B9B3C7; --paper:#151320; --surface:#1E1B2B; --surface-2:#262238;
+    --amber:#F2A83D; --teal:#4FD1C5; --slate:#9992A8;
+    --border: rgba(237,234,227,0.12); --border-strong: rgba(237,234,227,0.24);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -14px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:'Work Sans',-apple-system,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2{font-family:'Fraunces', Georgia, serif; font-weight:650; letter-spacing:-0.01em; text-wrap:balance; margin:0;}
+  a{color:inherit;}
+  a:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--amber); font-weight:700;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  header.site-nav{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+  .nav-row{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1040px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand-name{font-family:'Fraunces', serif; font-weight:650; font-size:1.05rem; letter-spacing:-0.01em;}
+  nav.links{display:flex; gap:28px;}
+  nav.links a{font-family:'JetBrains Mono', monospace; font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase; text-decoration:none; color:var(--ink-soft); border-bottom:1px solid transparent; padding-bottom:3px;}
+  nav.links a:hover{color:var(--amber); border-color:var(--amber);}
+  nav.links a.current{color:var(--amber); border-color:var(--amber);}
+  @media (max-width:640px){ nav.links{gap:16px;} }
+
+  .page-head{padding:64px 0 8px;}
+  .page-head h1{font-size:clamp(2rem, 4.2vw, 2.9rem); line-height:1.1;}
+  .page-head p{color:var(--ink-soft); max-width:56ch; margin-top:18px; font-size:1.05rem;}
+
+  .gallery{padding:48px 0 96px;}
+  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;}
+  @media (max-width:820px){ .grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:520px){ .grid{grid-template-columns:1fr;} }
+  figure{margin:0; background:var(--surface); border:1px solid var(--border); border-radius:6px; overflow:hidden; box-shadow:var(--shadow);}
+  figure.wide{grid-column:span 2;}
+  @media (max-width:520px){ figure.wide{grid-column:span 1;} }
+  figure img{width:100%; height:100%; display:block; object-fit:cover; aspect-ratio:4/3;}
+  figure.tall img{aspect-ratio:3/4;}
+  figcaption{padding:14px 16px; font-size:0.86rem; color:var(--ink-soft);}
+  figcaption .who{font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal); display:block; margin-bottom:4px;}
+
+  footer{padding:40px 0 64px; border-top:1px solid var(--border);}
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .footer-links a{font-family:'JetBrains Mono', monospace; font-size:0.76rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; color:var(--ink-soft); margin-right:20px;}
+  .footer-links a:hover{color:var(--amber);}
+  footer .sign{font-size:0.86rem; color:var(--slate);}
+</style>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <a class="brand" href="index.html">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <circle cx="13" cy="13" r="12" stroke="var(--amber)" stroke-width="1.6"/>
+        <path d="M14.5 5 L8 14.5 H12.5 L11 21 L18 11 H13.5 Z" fill="var(--amber)"/>
+      </svg>
+      <span class="brand-name">Mark Donovan</span>
+    </a>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="family.html" class="current">Family &amp; Trips</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap page-head">
+    <p class="eyebrow">Off the clock</p>
+    <h1>Family &amp; trips.</h1>
+    <p>The other side of the ledger — Shona, Layla (13), Aaron, and the places we've dragged each other to. No commit hashes on this page.</p>
+  </div>
+
+  <div class="wrap gallery">
+    <div class="grid">
+      <figure class="wide tall">
+        <img src="images/aaron-layla-nyc.jpg" alt="Layla and Aaron standing by the East River in New York City, with the Manhattan and Williamsburg bridges behind them">
+        <figcaption><span class="who">Layla &amp; Aaron</span>New York City, riverside</figcaption>
+      </figure>
+      <figure class="tall">
+        <img src="images/mark-shona.jpg" alt="Mark and Shona smiling together at a restaurant table">
+        <figcaption><span class="who">Mark &amp; Shona</span>Dinner, somewhere with good lighting</figcaption>
+      </figure>
+      <figure>
+        <img src="images/italy-statue.jpg" alt="Mark posing with a large wooden bear sculpture on a European street">
+        <figcaption><span class="who">Solo mission</span>Making friends with the local wildlife</figcaption>
+      </figure>
+      <figure class="wide">
+        <img src="images/cruise-ship.jpg" alt="A cruise ship anchored offshore near a Mediterranean coastline">
+        <figcaption><span class="who">The view</span>Somewhere on the Mediterranean</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap footer-row">
+      <p class="sign">More of these get added as they happen.</p>
+      <div class="footer-links">
+        <a href="index.html">← Back to the build log</a>
+      </div>
+    </div>
+  </footer>
+</main>

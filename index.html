@@ -1,0 +1,464 @@
+<!doctype html>
+<title>The Trivia Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560;9..144,650;9..144,860&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1826;
+    --ink-soft:#4A4558;
+    --paper:#F2F0F6;
+    --surface:#FFFFFF;
+    --surface-2:#E9E6F0;
+    --amber:#A8660A;
+    --teal:#0E6E68;
+    --green:#1B8E48;
+    --slate:#6B6478;
+    --border: rgba(26,24,38,0.14);
+    --border-strong: rgba(26,24,38,0.28);
+    --shadow: 0 1px 2px rgba(26,24,38,0.06), 0 8px 24px -12px rgba(26,24,38,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#EDEAE3;
+      --ink-soft:#B9B3C7;
+      --paper:#151320;
+      --surface:#1E1B2B;
+      --surface-2:#262238;
+      --amber:#F2A83D;
+      --teal:#4FD1C5;
+      --green:#3FBF6F;
+      --slate:#9992A8;
+      --border: rgba(237,234,227,0.12);
+      --border-strong: rgba(237,234,227,0.24);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -14px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#EDEAE3;
+    --ink-soft:#B9B3C7;
+    --paper:#151320;
+    --surface:#1E1B2B;
+    --surface-2:#262238;
+    --amber:#F2A83D;
+    --teal:#4FD1C5;
+    --green:#3FBF6F;
+    --slate:#9992A8;
+    --border: rgba(237,234,227,0.12);
+    --border-strong: rgba(237,234,227,0.24);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -14px rgba(0,0,0,0.6);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:650;
+    letter-spacing:-0.01em;
+    text-wrap:balance;
+    margin:0;
+  }
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+  .mono{font-family:'JetBrains Mono', 'Courier New', monospace;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--amber);
+    font-weight:700;
+  }
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+  section{padding:96px 0;}
+  @media (max-width:640px){ section{padding:64px 0;} .wrap{padding:0 20px;} }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1040px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand svg{display:block;}
+  .brand-name{font-family:'Fraunces', serif; font-weight:650; font-size:1.05rem; letter-spacing:-0.01em;}
+  nav.links{display:flex; gap:28px;}
+  nav.links a{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase;
+    text-decoration:none; color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    padding-bottom:3px;
+  }
+  nav.links a:hover{color:var(--amber); border-color:var(--amber);}
+  @media (max-width:640px){ nav.links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:64px; padding-bottom:56px;}
+  .hero-grid{display:grid; grid-template-columns:1.5fr 0.8fr; gap:56px; align-items:start;}
+  @media (max-width:800px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(2.1rem, 4.6vw, 3.4rem); line-height:1.08; margin-top:14px;}
+  .hero .lede{font-size:1.08rem; color:var(--ink-soft); max-width:52ch; margin-top:22px;}
+  .avatar-frame{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px;
+    padding:22px; box-shadow:var(--shadow); text-align:center;
+  }
+  .avatar-mark{
+    width:120px; height:120px; margin:0 auto 16px; border-radius:50%;
+    background:linear-gradient(155deg, var(--surface-2), var(--surface));
+    border:1px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-weight:650; font-size:2.4rem; color:var(--amber);
+  }
+  .avatar-frame p{font-size:0.82rem; color:var(--slate); margin:0;}
+  .avatar-frame .cap{font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--slate); margin-top:10px; display:block;}
+
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--border); border:1px solid var(--border);
+    border-radius:6px; overflow:hidden; margin-top:48px;
+  }
+  .stat{background:var(--surface); padding:20px 18px;}
+  .stat .num{
+    font-family:'JetBrains Mono', monospace; font-weight:700; font-size:1.7rem;
+    color:var(--amber); font-variant-numeric:tabular-nums; display:block;
+  }
+  .stat .label{font-size:0.78rem; color:var(--ink-soft); margin-top:4px; display:block;}
+  @media (max-width:640px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- section headers ---------- */
+  .sec-head{max-width:60ch; margin-bottom:48px;}
+  .sec-head h2{font-size:clamp(1.7rem, 3.2vw, 2.3rem); margin-top:10px;}
+  .sec-head .dek{color:var(--ink-soft); margin-top:14px; font-size:1rem;}
+
+  /* ---------- ON AIR ---------- */
+  .onair{background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .onair-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:52px; align-items:center;}
+  @media (max-width:800px){ .onair-grid{grid-template-columns:1fr;} }
+  .live-dot{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:0.74rem; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--slate); margin-bottom:14px;
+  }
+  .live-dot::before{
+    content:''; width:8px; height:8px; border-radius:50%; background:#D64545;
+    box-shadow:0 0 0 3px rgba(214,69,69,0.18);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .live-dot::before{animation:none;} }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+  .onair h2{font-size:clamp(2rem, 4vw, 2.6rem);}
+  .onair p{color:var(--ink-soft); margin-top:16px; max-width:48ch;}
+  .btn-row{display:flex; gap:14px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:5px; text-decoration:none;
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem; letter-spacing:0.06em; text-transform:uppercase;
+    border:1px solid var(--border-strong); transition:transform .15s ease, border-color .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px); border-color:var(--amber);}
+  .btn.primary{background:var(--amber); color:var(--paper); border-color:var(--amber);}
+  .btn.primary:hover{background:var(--teal); border-color:var(--teal);}
+
+  /* board graphic */
+  .board{
+    background:var(--ink); border-radius:8px; padding:20px; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:repeat(3,1fr); gap:8px;
+  }
+  :root[data-theme="light"] .board, :root:not([data-theme]) .board{ background:#151320; }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .board{ background:#0F0D18; } }
+  .board .cat{
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+    border-radius:4px; padding:12px 8px; text-align:center;
+  }
+  .board .cat .name{
+    font-family:'JetBrains Mono', monospace; font-size:0.62rem; letter-spacing:0.05em;
+    text-transform:uppercase; color:#C9C4D6; line-height:1.3; display:block; min-height:2.6em;
+  }
+  .board .cat .val{
+    font-family:'Fraunces', serif; font-weight:700; color:var(--amber); font-size:1.15rem; margin-top:8px; display:block;
+  }
+  .board .cat.filled .val{color:var(--teal);}
+
+  /* ---------- LOG / TIMELINE ---------- */
+  .log-entry{display:grid; grid-template-columns:150px 1fr; gap:28px; padding:26px 0; border-top:1px solid var(--border);}
+  .log-entry:last-of-type{border-bottom:1px solid var(--border);}
+  @media (max-width:640px){ .log-entry{grid-template-columns:1fr; gap:8px;} }
+  .log-meta{font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--slate);}
+  .log-meta .year{display:block; font-size:1.4rem; color:var(--ink); font-weight:700;}
+  .log-meta .hash{display:block; margin-top:4px; color:var(--teal);}
+  .log-meta .date{display:block; color:var(--slate);}
+  .log-card h3{font-size:1.2rem; font-weight:650;}
+  .log-card .chips{margin:8px 0 10px; display:flex; gap:6px; flex-wrap:wrap;}
+  .chip{
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.04em;
+    text-transform:uppercase; padding:3px 8px; border:1px solid var(--border-strong);
+    border-radius:3px; color:var(--ink-soft);
+  }
+  .log-card p{color:var(--ink-soft); font-size:0.96rem; max-width:56ch;}
+  .log-card a.visit{
+    font-family:'JetBrains Mono', monospace; font-size:0.76rem; color:var(--amber);
+    text-decoration:none; border-bottom:1px solid var(--amber); padding-bottom:1px;
+  }
+
+  .lab-callout{
+    margin-top:36px; background:var(--surface); border:1px dashed var(--border-strong);
+    border-radius:6px; padding:26px 28px;
+  }
+  .lab-callout .eyebrow{color:var(--teal);}
+  .lab-callout p{color:var(--ink-soft); margin-top:10px; max-width:60ch; font-size:0.96rem;}
+  .lab-tags{margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;}
+  .lab-tags span{
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:var(--slate);
+    background:var(--surface-2); padding:3px 9px; border-radius:3px;
+  }
+
+  /* ---------- OFF THE RECORD ---------- */
+  .otr{background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+  .otr-grid{display:grid; grid-template-columns:0.95fr 1.05fr; gap:52px; align-items:center;}
+  @media (max-width:800px){ .otr-grid{grid-template-columns:1fr;} }
+  .otr h2{font-size:clamp(1.9rem,3.6vw,2.4rem);}
+  .otr p{color:var(--ink-soft); margin-top:16px; max-width:48ch;}
+  .otr .note{margin-top:16px; font-size:0.84rem; color:var(--slate); font-style:italic;}
+
+  .clue-card{
+    background:#171325; border-radius:10px; padding:36px 28px; box-shadow:var(--shadow);
+    position:relative; overflow:hidden;
+  }
+  .clue-card .toolbar{display:flex; gap:16px; margin-bottom:28px;}
+  .clue-card .toolbar span{
+    font-family:'JetBrains Mono', monospace; font-size:0.6rem; letter-spacing:0.08em;
+    color:#8A84A0; text-transform:uppercase;
+  }
+  .clue-card .label{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--amber); text-align:center; display:block;
+  }
+  .clue-card .clue{
+    font-family:'Fraunces', serif; font-weight:650; font-size:clamp(1.5rem,3vw,2rem);
+    color:#F3F1F6; text-align:center; margin:20px 0 32px; line-height:1.25;
+  }
+  .clue-card .footer-row{display:flex; align-items:center; justify-content:center; gap:18px;}
+  .clue-card .pill{
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; color:#B9B3C7;
+    border:1px solid rgba(255,255,255,0.16); padding:3px 12px; border-radius:20px;
+  }
+  .clue-card .score{font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--green); font-weight:700;}
+  .clue-card .target{font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:var(--amber); font-weight:700;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 64px;}
+  .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
+  .footer-links{display:flex; gap:22px;}
+  .footer-links a{
+    font-family:'JetBrains Mono', monospace; font-size:0.76rem; letter-spacing:0.06em;
+    text-transform:uppercase; text-decoration:none; color:var(--ink-soft); border-bottom:1px solid transparent;
+  }
+  .footer-links a:hover{color:var(--amber); border-color:var(--amber);}
+  footer .sign{font-size:0.86rem; color:var(--slate);}
+  footer .sign strong{color:var(--ink); font-family:'Fraunces', serif; font-weight:650;}
+</style>
+
+<header class="site-nav">
+  <div class="nav-row">
+    <a class="brand" href="#top">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <circle cx="13" cy="13" r="12" stroke="var(--amber)" stroke-width="1.6"/>
+        <path d="M14.5 5 L8 14.5 H12.5 L11 21 L18 11 H13.5 Z" fill="var(--amber)"/>
+      </svg>
+      <span class="brand-name">Mark Donovan</span>
+    </a>
+    <nav class="links">
+      <a href="#onair">On Air</a>
+      <a href="#log">The Log</a>
+      <a href="#study">The Grind</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Personal build log · est. 2018</p>
+        <h1>A trivia obsession, rebuilt every few years in whatever language was new.</h1>
+        <p class="lede">I'm Mark Donovan. Since 2018 I've shipped a trivia app for Android TV, built the automation behind a 978-video trivia show, and ridden every wave of tech since — from the first ChatGPT API to coding alongside AI agents today. Right now the obsession has a target: 39,000 Anki cards deep into training for Jeopardy itself.</p>
+      </div>
+      <div class="avatar-frame">
+        <div class="avatar-mark">MD</div>
+        <p>Photo coming soon</p>
+        <span class="cap">Portrait pending</span>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="stat-strip">
+        <div class="stat"><span class="num">2018</span><span class="label">First trivia app shipped</span></div>
+        <div class="stat"><span class="num">978</span><span class="label">Videos on the show</span></div>
+        <div class="stat"><span class="num">9</span><span class="label">Repos across 7 years</span></div>
+        <div class="stat"><span class="num">1</span><span class="label">Private ritual, two players</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ON AIR -->
+  <section class="onair" id="onair">
+    <div class="wrap onair-grid">
+      <div>
+        <span class="live-dot">Live since 2022</span>
+        <h2>Instant Trivia</h2>
+        <p>What started as AutoHotkey macros firing during recordings turned into a real show: high-speed, high-intensity trivia, one question at a time. 978 videos and counting — the episode counter passed 2,000 a while back.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="https://www.youtube.com/@playinstanttriva" target="_blank" rel="noopener">Watch on YouTube</a>
+          <a class="btn" href="https://open.spotify.com/show/5yZlvpnkiWKWWwVDZCnXO2" target="_blank" rel="noopener">Listen on Spotify</a>
+        </div>
+      </div>
+      <div class="board" aria-hidden="true">
+        <div class="cat"><span class="name">General Knowledge</span><span class="val">$400</span></div>
+        <div class="cat filled"><span class="name">Sherlock Holmes</span><span class="val">✓</span></div>
+        <div class="cat"><span class="name">World Capitals</span><span class="val">$200</span></div>
+        <div class="cat"><span class="name">Science</span><span class="val">$600</span></div>
+        <div class="cat filled"><span class="name">Movies</span><span class="val">✓</span></div>
+        <div class="cat"><span class="name">History</span><span class="val">$800</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE LOG -->
+  <section id="log">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The build log</p>
+        <h2>Every rebuild, dated.</h2>
+        <p class="dek">Same obsession, new stack, every couple of years — pulled straight from the commit history.</p>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-meta"><span class="year">2018</span><span class="hash">b3d606f</span><span class="date">Sep 27</span></div>
+        <div class="log-card">
+          <h3>Tiv</h3>
+          <div class="chips"><span class="chip">Java</span><span class="chip">Android · TV</span></div>
+          <p>A native trivia app built for Android and Android TV — the first attempt at making trivia something you could hold, not just read.</p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-meta"><span class="year">2022</span><span class="hash">262c20e</span><span class="date">Dec 20</span></div>
+        <div class="log-card">
+          <h3>InstantTrivia</h3>
+          <div class="chips"><span class="chip">PHP</span><span class="chip">AutoHotkey</span></div>
+          <p>Automation scripts and a PHP trivia engine built to fire live during recordings — the tooling that turned trivia into an actual show.</p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-meta"><span class="year">2023</span><span class="hash">7c0c477…cd9e098</span><span class="date">Mar 19–27</span></div>
+        <div class="log-card">
+          <h3>welcome, chat &amp; quiz</h3>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Flask</span></div>
+          <p>A busy week right as the ChatGPT API opened up: a first "hello, internet" script, a GPT terminal app, and a Flask quiz engine seeded with presidents, Shakespeare, and opera trivia.</p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-meta"><span class="year">2023</span><span class="hash">11a5546</span><span class="date">Jul 4</span></div>
+        <div class="log-card">
+          <h3>hello</h3>
+          <div class="chips"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">Azure</span></div>
+          <p>Learning to actually ship something — deploying a Flask app to Azure, gunicorn and all.</p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-meta"><span class="year">2024</span><span class="hash">215c8d4</span><span class="date">Aug 12</span></div>
+        <div class="log-card">
+          <h3>donovanme.github.io</h3>
+          <div class="chips"><span class="chip">JavaScript</span></div>
+          <p>The current public trivia site — click a term mid-question, jump straight to its Wikipedia entry.</p>
+          <p><a class="visit" href="https://donovanme.github.io" target="_blank" rel="noopener">Visit the site →</a></p>
+        </div>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-meta"><span class="year">2025</span><span class="hash">4eb4678</span><span class="date">Sep 17</span></div>
+        <div class="log-card">
+          <h3>vcast</h3>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">AI-assisted</span></div>
+          <p>The first project built working alongside an AI coding agent instead of typing every line — the newest chapter, still being written.</p>
+        </div>
+      </div>
+
+      <div class="lab-callout">
+        <p class="eyebrow">Running underneath, the whole time</p>
+        <p>A private lab of podcast-production scripts and text-to-speech pipelines — the unglamorous plumbing that gets an episode from a question list to a posted video.</p>
+        <div class="lab-tags">
+          <span>create_mp3_files_for_podcast</span><span>azure_ssml</span><span>openai_tts</span><span>Podcast.ahk</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE GRIND -->
+  <section class="otr" id="study">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The project right now</p>
+        <h2>Studying for Jeopardy, one flashcard at a time.</h2>
+        <p class="dek">Underneath the show sits a much quieter project: getting good enough to actually stand at a podium. I mined years of clues from the J-Archive — the fan-run database of every question Jeopardy has ever aired — and turned them into a custom Anki deck.</p>
+      </div>
+
+      <div class="stat-strip" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat"><span class="num">39,000</span><span class="label">Cards memorized</span></div>
+        <div class="stat"><span class="num">1M+</span><span class="label">Flashcard reviews completed</span></div>
+        <div class="stat"><span class="num">J-Archive</span><span class="label">Mined for source clues</span></div>
+      </div>
+    </div>
+
+    <div class="wrap otr-grid" style="margin-top:56px;">
+      <div>
+        <p class="eyebrow">Off the record</p>
+        <h2 style="font-size:clamp(1.5rem,2.8vw,1.9rem);">A quieter version, just for us.</h2>
+        <p>The deck outgrew Anki, so I built a private study app to drill it faster — speed rounds, voice mode, running stats. My wife and I use it together, question by question, working toward a made-up million dollars.</p>
+        <p class="note">Not public, and it's staying that way — this is a recreation of the interface, not a link.</p>
+      </div>
+      <div class="clue-card">
+        <div class="toolbar"><span>Speed</span><span>Voice</span><span>Stats</span></div>
+        <span class="label">Completes the Play Title · $200</span>
+        <div class="clue">"Five Finger…"</div>
+        <div class="footer-row">
+          <span class="pill">1990</span>
+          <span class="score">$0</span>
+          <span class="target">🏆 $1M</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap footer-row">
+      <p class="sign"><strong>Mark Donovan</strong> — a trivia habit that never really ends.</p>
+      <div class="footer-links">
+        <a href="https://github.com/donovanme" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.youtube.com/@playinstanttriva" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://open.spotify.com/show/5yZlvpnkiWKWWwVDZCnXO2" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </footer>
+
+</main>

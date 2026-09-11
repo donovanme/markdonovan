@@ -59,6 +59,20 @@
   figcaption{padding:14px 16px; font-size:0.86rem; color:var(--ink-soft);}
   figcaption .who{font-family:'JetBrains Mono', monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal); display:block; margin-bottom:4px;}
 
+  .side-project{
+    margin-top:48px; background:var(--surface); border:1px solid var(--border);
+    border-left:4px solid var(--teal); border-radius:6px; padding:30px 32px; box-shadow:var(--shadow);
+  }
+  .side-project h2{font-size:1.5rem; margin-top:8px;}
+  .side-project p{color:var(--ink-soft); margin-top:12px; max-width:54ch;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:5px;
+    text-decoration:none; font-family:'JetBrains Mono', monospace; font-size:0.76rem;
+    letter-spacing:0.06em; text-transform:uppercase; border:1px solid var(--border-strong);
+    margin-top:20px; transition:transform .15s ease, border-color .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px); border-color:var(--amber); color:var(--amber);}
+
   footer{padding:40px 0 64px; border-top:1px solid var(--border);}
   .footer-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;}
   .footer-links a{font-family:'JetBrains Mono', monospace; font-size:0.76rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; color:var(--ink-soft); margin-right:20px;}
@@ -86,7 +100,7 @@
   <div class="wrap page-head">
     <p class="eyebrow">Off the clock</p>
     <h1>Family &amp; trips.</h1>
-    <p>The other side of the ledger — Shona, Layla (13), Aaron, and the places we've dragged each other to. No commit hashes on this page.</p>
+    <p>The other side of the ledger — Shona, Layla, Aaron, and the places we've dragged each other to. No commit hashes on this page.</p>
   </div>
 
   <div class="wrap gallery">
@@ -107,6 +121,13 @@
         <img src="images/cruise-ship.jpg" alt="A cruise ship anchored offshore near a Mediterranean coastline">
         <figcaption><span class="who">The view</span>Somewhere on the Mediterranean</figcaption>
       </figure>
+    </div>
+
+    <div class="side-project">
+      <p class="eyebrow">Next generation</p>
+      <h2>Electro Gamer</h2>
+      <p>Aaron runs his own Minecraft channel. Building things, recording it, and putting it online — I have no idea where he gets it.</p>
+      <a class="btn" href="https://www.youtube.com/channel/UC5mM3A04aVG5ZpPk_eUbyzA" target="_blank" rel="noopener">Electro Gamer on YouTube</a>
     </div>
   </div>
 
